@@ -1,0 +1,155 @@
+:root {
+  --board-box-size: 40px;
+  --ship-color: #ABCDEF;
+}
+
+.board-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.board-inner-container {
+  display: flex;
+  flex-direction: row
+}
+
+.board-letters {
+  display: flex;
+  flex-direction: column;
+}
+
+.board-numbers {
+  display: flex;
+  flex-direction: row;
+}
+
+.board-info {
+  height: var(--board-box-size);
+  width: var(--board-box-size);
+  background-color: rgba(0, 0, 255, 0.7);
+  border: 1px solid white;
+  align-content: center;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+}
+
+.board-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.board-element {
+  height: var(--board-box-size);
+  width: var(--board-box-size);
+  position: relative;
+  border: 1px solid white;
+  background-color: rgba(0, 0, 255, 0.5);
+}
+
+.board-element:hover {
+  background-color: yellow;
+}
+
+.ship-vertical-top { 
+  background-color: var(--ship-color);
+  position: absolute;
+  
+  top: calc(5px - 1px);
+  right: calc(5px - 1px); 
+  
+  
+  width: calc(var(--board-box-size) - 2 * 5px);
+  height: calc(var(--board-box-size) - 5px + 1px );
+
+  border-top-left-radius: var(--board-box-size);
+  border-top-right-radius: var(--board-box-size);
+}
+
+/* TODO : think about some better solution in the end of implementing */ 
+.ship-vertical {
+  background-color: var(--ship-color);
+  position: absolute;
+  
+  top: calc(0px - 1px); 
+  right: calc(5px - 1px);
+  
+  
+  height: calc(var(--board-box-size) );
+  width: calc(var(--board-box-size) - 2 * 5px);
+}
+
+.ship-vertical-bottom {
+  background-color: var(--ship-color);
+  position: absolute;
+  
+  bottom: calc(5px - 1px);
+  right: calc(5px - 1px); 
+
+  
+  height: calc(var(--board-box-size) - 5px + 1px );
+  width: calc(var(--board-box-size) - 2 * 5px);
+
+  border-bottom-left-radius: var(--board-box-size);
+  border-bottom-right-radius: var(--board-box-size);
+}
+
+.ship-horizontal-left {
+  background-color: var(--ship-color);
+  position: absolute;
+  
+  top: calc(5px - 1px);
+  left: calc(5px - 1px); 
+  
+  
+  height: calc(var(--board-box-size) - 2 * 5px);
+  width: calc(var(--board-box-size) - 5px + 1px );
+
+  border-top-left-radius: var(--board-box-size);
+  border-bottom-left-radius: var(--board-box-size);
+}
+
+.ship-horizontal {
+  background-color: var(--ship-color);
+  position: absolute;
+  
+  top: calc(5px - 1px);
+  right: calc(0px - 1px); 
+
+  height: calc(var(--board-box-size) - 2 * 5px);
+  width: calc(var(--board-box-size) );
+}
+
+.ship-horizontal-right {
+  background-color: var(--ship-color);
+  position: absolute;
+  
+  top: calc(5px - 1px);
+  right: calc(5px - 1px); 
+  
+  
+  height: calc(var(--board-box-size) - 2 * 5px);
+  width: calc(var(--board-box-size) - 5px + 1px );
+
+  border-top-right-radius: var(--board-box-size);
+  border-bottom-right-radius: var(--board-box-size);
+}
+
+.ship-horizontal:hover {
+  background-color: #111111;
+}
+
+
+
+
+
+
+
+
