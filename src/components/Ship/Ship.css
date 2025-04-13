@@ -1,0 +1,23 @@
+:root {
+  --ship-size: 30px;
+  --ship-color: #ABCDEF; 
+}
+
+.ships-setter-title {
+  height: var(--ship-size);
+  margin: 5px;
+  padding-left: 5px;
+  align-content: center;
+}
+
+.ship {
+  width: var(--ship-size);
+  height: var(--ship-size);
+  background-color: var(--ship-color);
+  margin: 10px;
+  
+  border-top-left-radius: var(--ship-size);
+  border-top-right-radius: var(--ship-size);
+  border-bottom-left-radius: var(--ship-size);
+  border-bottom-right-radius: var(--ship-size);
+}

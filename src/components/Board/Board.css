@@ -55,7 +55,8 @@
 }
 
 .board-element:hover {
-  background-color: yellow;
+  /* background-color: yellow; */
+  background-color: rgba(0, 0, 255, 0.9);
 }
 
 .ship-vertical-top { 

@@ -42,11 +42,6 @@ export const BoardBox = ({ element, row, column }: BoardBoxProps) => {
     default:
       break;
   }
-  
-
-  const getStyles = (num: number) => {
-    return { height: `${num * 40 - 2 * 5}px` }
-  }
 
   return (
     <div 
