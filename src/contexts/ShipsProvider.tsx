@@ -45,8 +45,6 @@ export const ShipsProvider = ({ children }: ShipsProviderProps) => {
     handleSetShips,
     areAllShipsSet
   } 
-  
-  console.log(ships);
 
   return (
     <ShipsContext.Provider value={value}>{children}</ShipsContext.Provider>

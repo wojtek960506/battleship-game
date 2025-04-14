@@ -1,6 +1,8 @@
-import React from "react";
+// import React, { MouseEvent } from "react";
 import { ShipDirection, ShipType } from "../../types/ShipTypes";
 import './Ship.css'
+import { useGame } from "../../contexts/GameProvider";
+import { GameState } from "../../types/GameTypes";
 
 type ShipProps = {
   ship: ShipType
@@ -8,14 +10,33 @@ type ShipProps = {
 
 export const Ship = ({ ship }: ShipProps) => {
   const { id, startingPosition, length, direction, isSet } = ship;
+  const { chosenShip, chooseShip, gameState, handleSetGameState } = useGame();
 
+  
   
   const getStyles = (num: number) => {
     return { [direction === ShipDirection.HORIZONTAL ? 'width' : 'height']: `${num * 40 - 2 * 5}px` }
   }
 
+  const handleShipClick = () => {
+    if (gameState === GameState.SETTING_SHIPS_NO_CHOSEN) {
+      chooseShip(ship.id)
+      handleSetGameState(GameState.SETTING_SHIPS_ONE_CHOSEN)
+    } else {
+      if (chosenShip !== ship.id) {
+        // choosing ship while other was chosen
+        chooseShip(ship.id)
+      } else {
+        chooseShip(undefined)
+        handleSetGameState(GameState.SETTING_SHIPS_NO_CHOSEN)
+      }
+    }
+
+
+    
+  }
 
   return (
-    <div className="ship" style={getStyles(length)} />
+    <div onClick={handleShipClick} className="ship" style={getStyles(length)} />
   )
 }

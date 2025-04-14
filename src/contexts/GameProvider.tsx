@@ -5,6 +5,8 @@ import { GameState } from "../types/GameTypes";
 type GameContextType = {
   gameState: GameState,
   handleSetGameState: (gameState: GameState) => void,
+  chosenShip?: number,
+  chooseShip: (chosenShip: number | undefined) => void,
 }
 
 type GameProviderProps = {
@@ -19,14 +21,21 @@ export const useGame = () => {
 
 export const GameProvider = ({ children }: GameProviderProps) => {
   const [gameState, setGameState] = useState(GameState.SETTING_SHIPS_NO_CHOSEN)
+  const [chosenShip, setChosenShip] = useState<number | undefined>(undefined)
 
   const handleSetGameState = (gameState: GameState) => {
     setGameState(gameState)
   }
 
+  const chooseShip = (chosenShip: number | undefined) => {
+    setChosenShip(chosenShip)
+  }
+
   const value: GameContextType = {
     gameState,
-    handleSetGameState
+    handleSetGameState,
+    chosenShip,
+    chooseShip,
   }
 
   return (
