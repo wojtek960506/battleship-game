@@ -1,5 +1,8 @@
-import React from "react";
+
 import { BoardElement } from "../../types/BoardTypes";
+import { useGame } from "../../contexts/GameProvider";
+import { GameState } from "../../types/GameTypes";
+import { useBoard } from "../../contexts/BoardProvider";
 
 type BoardBoxProps = {
   element: BoardElement;
@@ -8,6 +11,8 @@ type BoardBoxProps = {
 }
 
 export const BoardBox = ({ element, row, column }: BoardBoxProps) => {
+  const { gameState } = useGame()
+  const { checkShipFitOnBoard, showShipOnBoard, hideShipOnBoard } = useBoard()
   
   let elementColor;
 
@@ -43,22 +48,36 @@ export const BoardBox = ({ element, row, column }: BoardBoxProps) => {
       break;
   }
 
-  return (
-    <div 
-      className='board-element'
-      onClick={(e) => {
-        console.log(`click board element row=${row} column=${column}`);
-      }}  
-    >
-      
+  const handleBoardBoxMouseEnter = () => {
+    // for now handle board clicks when setting ships
+    if (gameState === GameState.SETTING_SHIPS_NO_CHOSEN) return;
 
+    if (gameState === GameState.SETTING_SHIPS_ONE_CHOSEN) {
+      if (!checkShipFitOnBoard(row, column)) return
+      showShipOnBoard(row, column)
+    }
+  }
+
+  const handleBoardBoxMouseLeave = () => {
+    // for now handle board clicks when setting ships
+    if (gameState === GameState.SETTING_SHIPS_NO_CHOSEN) return;
+
+    if (gameState === GameState.SETTING_SHIPS_ONE_CHOSEN) {
+      if (!checkShipFitOnBoard(row, column)) return
+      hideShipOnBoard(row, column)
+    }
+
+  }
+
+  return (
+    <button 
+      className='board-element'
+      onMouseEnter={handleBoardBoxMouseEnter}
+      onMouseLeave={handleBoardBoxMouseLeave}
+    >
       {elementColor &&
-        <div
-          className={`${elementColor}`}
-          // style={{height: `${5 * 40 - 2 * 5}px`}}
-          // style={getStyles(5)}
-        />
+        <div className={`${elementColor}`} />
       }
-    </div>
+    </button>
   )
 }

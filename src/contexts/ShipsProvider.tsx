@@ -39,10 +39,8 @@ export const ShipsProvider = ({ children }: ShipsProviderProps) => {
   const [ships, setShips] = useState<Ships>(initialShips);
   const [shipsDirection, setShipsDirection] = useState<ShipDirection>(ShipDirection.HORIZONTAL)
 
-  console.log('shipsDirection', shipsDirection)
-
   const areAllShipsSet = () => ships.every(ship => ship.isSet)
-
+  
   const handleSetShips = (ships: Ships) => setShips(ships);
 
   const changeShipsDirection = (shipsDirection: ShipDirection) => {

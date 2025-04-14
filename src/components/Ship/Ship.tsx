@@ -18,12 +18,12 @@ export const Ship = ({ ship }: ShipProps) => {
 
   const handleShipClick = () => {
     if (gameState === GameState.SETTING_SHIPS_NO_CHOSEN) {
-      chooseShip(ship.id)
+      chooseShip(ship)
       handleSetGameState(GameState.SETTING_SHIPS_ONE_CHOSEN)
     } else {
-      if (chosenShip !== ship.id) {
+      if (chosenShip?.id !== ship.id) {
         // choosing ship while other was chosen
-        chooseShip(ship.id)
+        chooseShip(ship)
       } else {
         chooseShip(undefined)
         handleSetGameState(GameState.SETTING_SHIPS_NO_CHOSEN)
@@ -32,7 +32,7 @@ export const Ship = ({ ship }: ShipProps) => {
   }
 
   let shipClassName = "ship";
-  if (chosenShip === id) shipClassName += " chosen"
+  if (chosenShip?.id === id) shipClassName += " chosen"
 
   return (
     <div onClick={handleShipClick} className={shipClassName} style={getStyles(length)} />
