@@ -1,6 +1,8 @@
 :root {
+  --ship-size: 30px;
   --board-box-size: 40px;
-  --ship-color: #ABCDEF;
+  --ship-color: #215991;
+  --chosen-ship-color: #69a7e6;
   --board-info-color: rgba(0, 0, 255, 0.7);
   --board-element-color: rgba(0, 0, 255, 0.5);
 }

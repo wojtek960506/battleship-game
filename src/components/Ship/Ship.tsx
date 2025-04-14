@@ -12,8 +12,6 @@ export const Ship = ({ ship }: ShipProps) => {
   const { id, startingPosition, length, direction, isSet } = ship;
   const { chosenShip, chooseShip, gameState, handleSetGameState } = useGame();
 
-  
-  
   const getStyles = (num: number) => {
     return { [direction === ShipDirection.HORIZONTAL ? 'width' : 'height']: `${num * 40 - 2 * 5}px` }
   }
@@ -30,13 +28,13 @@ export const Ship = ({ ship }: ShipProps) => {
         chooseShip(undefined)
         handleSetGameState(GameState.SETTING_SHIPS_NO_CHOSEN)
       }
-    }
-
-
-    
+    }   
   }
 
+  let shipClassName = "ship";
+  if (chosenShip === id) shipClassName += " chosen"
+
   return (
-    <div onClick={handleShipClick} className="ship" style={getStyles(length)} />
+    <div onClick={handleShipClick} className={shipClassName} style={getStyles(length)} />
   )
 }

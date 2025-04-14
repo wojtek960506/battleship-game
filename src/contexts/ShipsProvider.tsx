@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 import { ShipDirection, Ships, ShipType } from "../types/ShipTypes";
 
-const DEFAULT_SHIP_LENGTHS = [5, 5, 4, 3, 3, 2]
+const DEFAULT_SHIP_LENGTHS = [5, 4, 3, 3, 2]
 
 
 type ShipsContextType = {
