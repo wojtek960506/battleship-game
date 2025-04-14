@@ -1,13 +1,15 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 import { ShipDirection, Ships, ShipType } from "../types/ShipTypes";
 
-const DEFAULT_SHIP_LENGTHS = [5, 4, 3, 3, 2]
+const DEFAULT_SHIP_LENGTHS = [5, 5, 4, 3, 3, 2]
 
 
 type ShipsContextType = {
   ships: Ships,
   handleSetShips: (ships: Ships) => void,
   areAllShipsSet: () => boolean,
+  shipsDirection: ShipDirection,
+  changeShipsDirection: (shipsDirection: ShipDirection) => void,
 }
 
 type ShipsProviderProps = {
@@ -35,15 +37,30 @@ const initialShips = () => {
 
 export const ShipsProvider = ({ children }: ShipsProviderProps) => {
   const [ships, setShips] = useState<Ships>(initialShips);
+  const [shipsDirection, setShipsDirection] = useState<ShipDirection>(ShipDirection.HORIZONTAL)
+
+  console.log('shipsDirection', shipsDirection)
 
   const areAllShipsSet = () => ships.every(ship => ship.isSet)
 
   const handleSetShips = (ships: Ships) => setShips(ships);
 
+  const changeShipsDirection = (shipsDirection: ShipDirection) => {
+    setShipsDirection(shipsDirection)
+    setShips(prevShips => {
+      prevShips.forEach(ship => {
+        if (!ship.isSet) ship.direction = shipsDirection
+      })
+      return prevShips
+    })
+  }
+
   const value: ShipsContextType = {
     ships,
     handleSetShips,
-    areAllShipsSet
+    areAllShipsSet,
+    shipsDirection,
+    changeShipsDirection,
   } 
 
   return (

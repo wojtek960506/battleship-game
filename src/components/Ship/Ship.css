@@ -1,13 +1,31 @@
 :root {
   --ship-size: 30px;
-  --ship-color: #ABCDEF; 
+  --ship-color: #ABCDEF;
+  --board-info-color: rgba(0, 0, 255, 0.7)
+}
+
+.ships-setter {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .ships-setter-title {
   height: var(--ship-size);
   margin: 5px;
-  padding-left: 5px;
+  padding-right: 5px;
   align-content: center;
+  text-align: right;
+}
+
+.ships-horizontally {
+  display: flex;
+  flex-direction: column
+}
+
+.ships-vertically {
+  display: flex;
+  flex-direction: row;
 }
 
 .ship {
@@ -20,4 +38,14 @@
   border-top-right-radius: var(--ship-size);
   border-bottom-left-radius: var(--ship-size);
   border-bottom-right-radius: var(--ship-size);
+}
+
+.ships-direction-button {
+  background-color: var(--board-info-color);
+  color: white;
+  border: none;
+  padding: 5px;
+  margin: 5px;
+  height: var(--ship-size);
+  border-radius: var(--ship-size);
 }
