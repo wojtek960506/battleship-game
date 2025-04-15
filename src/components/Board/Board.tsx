@@ -8,7 +8,9 @@ export const Board = () => {
   return (
     <div className="board">
       {board.map(
-        (boardRow, i) => <BoardRow key={i} data={boardRow} row={i} />
+        (boardRow, i) => (
+          <BoardRow key={`board-row-${i}`} boardRow={boardRow} rowNumber={i} />
+        )
       )}
 
     </div>

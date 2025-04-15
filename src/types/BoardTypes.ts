@@ -1,13 +1,24 @@
-export enum BoardElement {
+export enum BoardValue {
   EMPTY = 'O',
   MISSED = '*',
   HIT = 'X',
-  SHIP_HORIZONTAL = '=',
-  TMP_TOP = 'T',
-  TMP_BOTTOM = 'B',
-  SHIP_VERTICAL = '|',
-  TMP_LEFT = 'L',
-  TMP_RIGHT = 'R'
+  VERTICAL_TOP = 'T',
+  VERTICAL_BOTTOM = 'B',
+  VERTICAL_MIDDLE = '|',
+  HORIZONTAL_MIDDLE = '=',
+  HORIZONTAL_LEFT = 'L',
+  HORIZONTAL_RIGHT = 'R'
 }
 
-export type BoardType = Array<Array<BoardElement>>;
+export type BoardFieldType = {
+  value: BoardValue,
+  hasShip: boolean,
+  isSet: boolean,
+  row: number,
+  column: number,
+}
+
+export type BoardRowType = BoardFieldType[]
+
+export type BoardType = BoardRowType[];
+

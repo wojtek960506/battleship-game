@@ -1,54 +1,53 @@
 
-import { BoardElement } from "../../types/BoardTypes";
+import { BoardFieldType, BoardValue } from "../../types/BoardTypes";
 import { useGame } from "../../contexts/GameProvider";
 import { GameState } from "../../types/GameTypes";
 import { useBoard } from "../../contexts/BoardProvider";
 import { useShips } from "../../contexts/ShipsProvider";
 
 type BoardBoxProps = {
-  element: BoardElement;
-  row: number;
-  column: number;
+  boardField: BoardFieldType;
 }
 
-export const BoardBox = ({ element, row, column }: BoardBoxProps) => {
+export const BoardBox = ({ boardField }: BoardBoxProps) => {
+  const { value, row, column } = boardField;
   const { gameState, handleSetGameState } = useGame()
   const { 
-    checkShipFitOnBoard, showShipOnBoard, hideShipOnBoard, isInsideSetShip
+    checkShipFitOnBoard, showShipOnBoard, hideShipOnBoard
   } = useBoard()
   const { setChosenShip } = useShips()
-  
+
   let elementColor;
 
-  switch (element) {
-    case BoardElement.HIT:
+  switch (value) {
+    case BoardValue.HIT:
       elementColor = 'hit'
       break;
-    case BoardElement.MISSED:
+    case BoardValue.MISSED:
       elementColor = 'missed'
       break;
 
-    case BoardElement.SHIP_HORIZONTAL:
+    case BoardValue.HORIZONTAL_MIDDLE:
       elementColor = 'ship-horizontal'
       break;
-    case BoardElement.TMP_LEFT:
+    case BoardValue.HORIZONTAL_LEFT:
       elementColor = 'ship-horizontal-left'
       break
-    case BoardElement.TMP_RIGHT:
+    case BoardValue.HORIZONTAL_RIGHT:
       elementColor = 'ship-horizontal-right'
       break
     
-    case BoardElement.SHIP_VERTICAL:
+    case BoardValue.VERTICAL_MIDDLE:
       elementColor = 'ship-vertical'
       break;
-    case BoardElement.TMP_TOP:
+    case BoardValue.VERTICAL_TOP:
       elementColor = 'ship-vertical-top'
       break
-    case BoardElement.TMP_BOTTOM:
+    case BoardValue.VERTICAL_BOTTOM:
       elementColor = 'ship-vertical-bottom'
       break
     
-    case BoardElement.EMPTY:
+    case BoardValue.EMPTY:
     default:
       break;
   }

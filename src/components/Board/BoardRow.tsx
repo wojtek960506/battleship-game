@@ -1,17 +1,19 @@
-import React from "react";
-import { BoardElement } from "../../types/BoardTypes";
+import { BoardRowType } from "../../types/BoardTypes";
 import { BoardBox } from "./BoardBox";
 
 type BoardRowProps = {
-  data: BoardElement[],
-  row: number
+  boardRow: BoardRowType,
+  rowNumber: number
 }
 
-export const BoardRow = ({ data, row }: BoardRowProps) => {
+export const BoardRow = ({ boardRow, rowNumber }: BoardRowProps) => {
+
   return (
     <div className='board-row'>
-      {data.map(
-        (element, index) => <BoardBox key={index} element={element} row={row} column={index} />
+      {boardRow.map(
+        (boardField, index) => (
+        <BoardBox key={`board-box-${rowNumber}-${index}`} boardField={boardField} />
+      )
       )}
     </div>
   )

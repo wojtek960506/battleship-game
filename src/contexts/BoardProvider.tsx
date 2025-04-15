@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext, useState } from "react";
-import { BoardElement, BoardType } from "../types/BoardTypes";
+import { BoardValue, BoardFieldType, BoardRowType, BoardType } from "../types/BoardTypes";
 import { useGame } from "./GameProvider";
 import { ShipDirection, ShipPosition } from "../types/ShipTypes";
 
@@ -30,11 +30,21 @@ export const useBoard = () => {
 const initialBoard = () => {
   const tmpBoard: BoardType = []
 
-  for (let i = 0; i < DEFAULT_BOARD_LENGTH ; i++) {
-    const boardRow = []
+  for (let row = 0; row < DEFAULT_BOARD_LENGTH ; row++) {
+    const boardRow: BoardRowType = []
     
-    for (let j = 0; j < DEFAULT_BOARD_LENGTH ; j++) {
-      boardRow.push(BoardElement.EMPTY)
+    for (let column = 0; column < DEFAULT_BOARD_LENGTH ; column++) {
+      // let value = BoardValue.EMPTY;
+      // if (row == 0 && column == 0) value = BoardValue.MISSED;
+      
+      boardRow.push({
+        value: BoardValue.EMPTY,
+        // value: value,
+        hasShip: false,
+        isSet: false,
+        row,
+        column: column
+      } as BoardFieldType)
     }
     tmpBoard.push(boardRow);
   }
@@ -142,11 +152,11 @@ export const BoardProvider = ({ children }: BoardProviderProps) => {
     // console.log('coordinates around ship', coordAroundShip);
 
     for (const { row, column } of coordOfShip) {
-      if (board[row][column] !== BoardElement.EMPTY) return false
+      if (board[row][column].value !== BoardValue.EMPTY) return false
     }
 
     for (const { row, column } of coordAroundShip) {
-      if (board[row][column] !== BoardElement.EMPTY) return false
+      if (board[row][column].value !== BoardValue.EMPTY) return false
     }
 
     return true;
@@ -157,15 +167,15 @@ export const BoardProvider = ({ children }: BoardProviderProps) => {
     
     for (let i = 0; i < chosenShip.length; i++) {
       if (chosenShip.direction === ShipDirection.HORIZONTAL) {
-        const element = i === 0
-          ? BoardElement.TMP_LEFT : (
+        const boardValue = i === 0
+          ? BoardValue.HORIZONTAL_LEFT : (
             i === chosenShip.length - 1
-              ? BoardElement.TMP_RIGHT
-              : BoardElement.SHIP_HORIZONTAL
+              ? BoardValue.HORIZONTAL_RIGHT
+              : BoardValue.HORIZONTAL_MIDDLE
           )
-        board[row][column + i] = element;
+        board[row][column + i].value = boardValue;
       } else {
-        board[row + i][column] = BoardElement.SHIP_VERTICAL;
+        board[row + i][column].value = BoardValue.VERTICAL_MIDDLE;
       }
     }
     // deep copy of the array has to be done to make changes in state
@@ -177,9 +187,9 @@ export const BoardProvider = ({ children }: BoardProviderProps) => {
     
     for (let i = 0; i < chosenShip.length; i++) {
       if (chosenShip.direction === ShipDirection.HORIZONTAL) {
-        board[row][column + i] = BoardElement.EMPTY;
+        board[row][column + i].value = BoardValue.EMPTY;
       } else {
-        board[row + i][column] = BoardElement.EMPTY;
+        board[row + i][column].value = BoardValue.EMPTY;
       }
     }
     // deep copy of the array has to be done to make changes in state
@@ -187,7 +197,7 @@ export const BoardProvider = ({ children }: BoardProviderProps) => {
   }
 
   const isInsideSetShip = (row: number, column: number) => {
-    return board[row][column] !== BoardElement.EMPTY
+    return board[row][column].value !== BoardValue.EMPTY
   }
 
   const value: BoardContextType = {
