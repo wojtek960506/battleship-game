@@ -1,4 +1,3 @@
-import React from "react";
 import { useBoard } from "../../contexts/BoardProvider";
 import { BoardRow } from "./BoardRow";
 

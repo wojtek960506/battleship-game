@@ -1,4 +1,3 @@
-import React from "react";
 import { useShips } from "../../contexts/ShipsProvider";
 import { Ship } from "./Ship";
 import "./Ship.css"
@@ -23,7 +22,7 @@ export const ShipsSetter = () => {
     <div className="ships-setter">
       <h2 className="ships-setter-title">Set ships</h2>
       <div className={shipsClass}>
-        {ships.map(ship => <Ship key={ship.id} ship={ship} />)}
+        {ships.filter(ship => !ship.isSet).map(ship => <Ship key={ship.id} ship={ship} />)}
       </div>
       <button
         className="ships-direction-button"

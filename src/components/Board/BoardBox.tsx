@@ -3,6 +3,7 @@ import { BoardElement } from "../../types/BoardTypes";
 import { useGame } from "../../contexts/GameProvider";
 import { GameState } from "../../types/GameTypes";
 import { useBoard } from "../../contexts/BoardProvider";
+import { useShips } from "../../contexts/ShipsProvider";
 
 type BoardBoxProps = {
   element: BoardElement;
@@ -11,8 +12,11 @@ type BoardBoxProps = {
 }
 
 export const BoardBox = ({ element, row, column }: BoardBoxProps) => {
-  const { gameState } = useGame()
-  const { checkShipFitOnBoard, showShipOnBoard, hideShipOnBoard } = useBoard()
+  const { gameState, handleSetGameState } = useGame()
+  const { 
+    checkShipFitOnBoard, showShipOnBoard, hideShipOnBoard, isInsideSetShip
+  } = useBoard()
+  const { setChosenShip } = useShips()
   
   let elementColor;
 
@@ -23,6 +27,7 @@ export const BoardBox = ({ element, row, column }: BoardBoxProps) => {
     case BoardElement.MISSED:
       elementColor = 'missed'
       break;
+
     case BoardElement.SHIP_HORIZONTAL:
       elementColor = 'ship-horizontal'
       break;
@@ -36,12 +41,12 @@ export const BoardBox = ({ element, row, column }: BoardBoxProps) => {
     case BoardElement.SHIP_VERTICAL:
       elementColor = 'ship-vertical'
       break;
-      case BoardElement.TMP_TOP:
-        elementColor = 'ship-vertical-top'
-        break
-      case BoardElement.TMP_BOTTOM:
-        elementColor = 'ship-vertical-bottom'
-        break
+    case BoardElement.TMP_TOP:
+      elementColor = 'ship-vertical-top'
+      break
+    case BoardElement.TMP_BOTTOM:
+      elementColor = 'ship-vertical-bottom'
+      break
     
     case BoardElement.EMPTY:
     default:
@@ -63,10 +68,23 @@ export const BoardBox = ({ element, row, column }: BoardBoxProps) => {
     if (gameState === GameState.SETTING_SHIPS_NO_CHOSEN) return;
 
     if (gameState === GameState.SETTING_SHIPS_ONE_CHOSEN) {
-      if (!checkShipFitOnBoard(row, column)) return
+      // if (!checkShipFitOnBoard(row, column)) return
+      // if (!isInsideSetShip) hideShipOnBoard(row, column)
       hideShipOnBoard(row, column)
     }
+  }
 
+  const handleBoardBoxOnClick = () => {
+    //
+    if (gameState === GameState.SETTING_SHIPS_NO_CHOSEN) return;
+
+    if (gameState === GameState.SETTING_SHIPS_ONE_CHOSEN) {
+      // if (!checkShipFitOnBoard(row, column)) return
+      // showShipOnBoard(row, column)
+      handleSetGameState(GameState.SETTING_SHIPS_NO_CHOSEN)
+      setChosenShip(row, column)
+      
+    }
   }
 
   return (
@@ -74,6 +92,7 @@ export const BoardBox = ({ element, row, column }: BoardBoxProps) => {
       className='board-element'
       onMouseEnter={handleBoardBoxMouseEnter}
       onMouseLeave={handleBoardBoxMouseLeave}
+      onClick={handleBoardBoxOnClick}
     >
       {elementColor &&
         <div className={`${elementColor}`} />

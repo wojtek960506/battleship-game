@@ -1,4 +1,3 @@
-// import React, { MouseEvent } from "react";
 import { ShipDirection, ShipType } from "../../types/ShipTypes";
 import './Ship.css'
 import { useGame } from "../../contexts/GameProvider";
@@ -9,7 +8,7 @@ type ShipProps = {
 }
 
 export const Ship = ({ ship }: ShipProps) => {
-  const { id, startingPosition, length, direction, isSet } = ship;
+  const { id, length, direction } = ship;
   const { chosenShip, chooseShip, gameState, handleSetGameState } = useGame();
 
   const getStyles = (num: number) => {
